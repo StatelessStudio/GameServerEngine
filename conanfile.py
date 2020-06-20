@@ -11,11 +11,17 @@ class SsgeServerConan(ConanFile):
     topics = ("3d", "game", "engine", "graphics", "sound", "physics", "networking")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = {"shared": False}
+
+    default_options = {
+        "shared": False
+
+    }
+
     generators = "cmake"
     exports_sources = "src/*"
 
     requires = [
+        ("poco/1.10.1"),
         ("ssge/0.0.0@demo/testing")
     ]
 
