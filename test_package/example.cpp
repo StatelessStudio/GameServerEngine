@@ -58,7 +58,11 @@ int main()
                 // cout << "ENTITY " << i << " address: " << entity << endl;
 
                     Vec3 pos = entity->getPosition();
-                    cout << "Position: (" << pos.x << ", " << pos.y << ", " << pos.z <<
+                    cout << "[" << entity->getId() << "] " <<
+                        "Position: (" <<
+                        pos.x << ", " <<
+                        pos.y << ", " <<
+                        pos.z <<
                         ")" << endl;
                 }
             }

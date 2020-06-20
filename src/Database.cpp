@@ -49,6 +49,7 @@ void Database::migrate()
 
 	try {
 		*session << "CREATE TABLE CollisionEntity (" <<
+			"id INTEGER PRIMARY KEY, " <<
 			"posx REAL, " <<
 			"posy REAL, " <<
 			"posz REAL, " <<
@@ -77,7 +78,7 @@ void Database::seed(unsigned int nEntities)
 
 	try {
 		Statement insert(*session);
-		insert << "INSERT INTO CollisionEntity VALUES(?, ?, ?, ?, ?, ?, ?)",
+		insert << "INSERT INTO CollisionEntity VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)",
 			use(entity.position.x),
 			use(entity.position.y),
 			use(entity.position.z),
@@ -114,6 +115,7 @@ void Database::getCollisionEntities(std::vector<CollisionEntity>& entities)
 		CollisionEntity entity;
 		Statement select(*session);
 		select << "SELECT * FROM CollisionEntity",
+			into(entity.id),
 			into(entity.position.x),
 			into(entity.position.y),
 			into(entity.position.z),
