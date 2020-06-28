@@ -128,6 +128,7 @@ void Database::getCollisionEntities(std::vector<CollisionEntity>& entities)
 		while (!select.done())
 		{
 			select.execute();
+			entity.hasId = true;
 			entities.push_back(entity);
 		}
 	}
