@@ -91,9 +91,9 @@ void Database::seed(unsigned int nEntities)
 
 		for (int i = 0; i < nEntities; i++) {
 			entity.setPosition(Vec3(
-				randfloat(10),
-				randfloat(10),
-				randfloat(10)
+				randfloat(50),
+				randfloat(50),
+				randfloat(50)
 			));
 			entity.setScale(Vec3(1, 1, 1));
 			entity.setMass(randfloat(1));
