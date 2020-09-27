@@ -129,7 +129,7 @@ void ConnectionHandler::onSocketError(const AutoPtr<ErrorNotification>& pNf)
 void ConnectionHandler::onSocketTimeout(const AutoPtr<TimeoutNotification>& pNf)
 {
 	std::cout << "[" << socket.peerAddress().toString() << "] Socket Timeout" << std::endl;
-	delete this;
+	//delete this;
 	// TODO:
 }
 
