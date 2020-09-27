@@ -2,6 +2,8 @@
 #include "Engine.h"
 #include <SSGE/Entity.h>
 
+bool hasRunSimulation = false;
+
 namespace SSGEServer
 {
 
@@ -20,6 +22,13 @@ ConnectionHandler::ConnectionHandler(StreamSocket& _socket, SocketReactor& _reac
 
 	_fifoOut.readable += delegate(this, &ConnectionHandler::onFIFOOutReadable);
 	_fifoIn.writable += delegate(this, &ConnectionHandler::onFIFOInWritable);
+	
+	if (!hasRunSimulation) {
+		hasRunSimulation = true;
+
+		Engine* engine = getEngine();
+		engine->shouldRun = true;
+	}
 }
 
 ConnectionHandler::~ConnectionHandler()

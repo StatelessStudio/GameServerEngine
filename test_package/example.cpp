@@ -19,6 +19,8 @@ int main()
         cout << "Creating engine..." << endl;
         Engine* engine;
         engine = getEngine();
+        engine->shouldRun = false;
+
         std::vector<CollisionEntity>* entities = &engine->entities;
 
         cout << "Setting up database..." << endl;
