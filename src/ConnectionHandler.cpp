@@ -98,9 +98,6 @@ void ConnectionHandler::onSocketReadable(const AutoPtr<ReadableNotification>& pN
 		for (int i = 0; i < nEntities; i++) {
 			std::string data = engine->entities.at(i).serialize();
 			_fifoOut.write(data.c_str(), data.size());
-
-			SSGE::Entity entity;
-			entity.unserialize(data);
 		}
 	}
 	catch (Poco::Exception& ex) {
