@@ -10,27 +10,15 @@ using std::chrono::system_clock;
 namespace SSGEServer
 {
 
-Engine::Engine()
-{
-	std::cout << "Server Engine Started!" << std::endl;
-
-	shouldRun = true;
-}
-
-Engine::~Engine()
-{
-	std::cout << "Server Engine Teardown!" << std::endl;
-}
-
 void Engine::start()
 {
-	simulationThread.start(this);
+	thread.start(this);
 }
 
 void Engine::stop()
 {
 	isStopped = true;
-	simulationThread.join();
+	thread.join();
 }
 
 void Engine::run()
@@ -49,13 +37,6 @@ void Engine::run()
 			lastrun = now;
 		}
 	}
-}
-
-unsigned __int64 Engine::getTime()
-{
-	return duration_cast<milliseconds>(
-		system_clock::now().time_since_epoch()
-	).count();
 }
 
 Engine* getEngine()
