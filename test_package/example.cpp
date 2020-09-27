@@ -5,7 +5,6 @@
 #include <SSGEServer/Engine.h>
 #include <SSGEServer/Database.h>
 #include <SSGEServer/CollisionEntity.h>
-#include <SSGEServer/PhysicsWorld.h>
 
 using std::vector;
 using std::cout;
@@ -19,6 +18,7 @@ int main()
         cout << "Creating engine..." << endl;
         Engine* engine;
         engine = getEngine();
+        std::vector<CollisionEntity>* entities = &engine->entities;
 
         cout << "Setting up database..." << endl;
         Database db("SQLite", "C:/Users/Drew/Downloads/sample.db");
@@ -29,43 +29,45 @@ int main()
         cout << "Seeding... " << endl;
         db.seed();
 
-        cout << "Creating physics world..." << endl;
-        PhysicsWorld physicsWorld;
 
         cout << "Getting entities..." << endl;
-        vector<CollisionEntity> entities;
-        db.getCollisionEntities(entities);
+        db.getCollisionEntities(*entities);
 
-        cout << "Found " << entities.size() << " entities!" << endl;
+        cout << "Found " << entities->size() << " entities!" << endl;
 
         // Output found entities
-        for (int i = 0; i < entities.size(); i++) {
-            cout << "ENTITY " << i << " address: " << &(entities.at(i)) << endl;
+        for (int i = 0; i < entities->size(); i++) {
+            cout << "ENTITY " << i << " address: " << &(entities->at(i)) << endl;
 
-            Vec3 pos = entities.at(i).getPosition();
+            Vec3 pos = entities->at(i).getPosition();
             cout << pos.x << " " << pos.y << " " << pos.z << endl;
 
-            physicsWorld.addEntity(entities.at(i));
+            engine->addEntity(entities->at(i));
         }
 
         // Run simulation
-        for (int i = 0; i < 500; i++) {
-            physicsWorld.step();
+        engine->start();
 
-            for (int i = 0; i < entities.size(); i++) {
-                CollisionEntity* entity = &entities.at(i);
+        std::cout << "Press enter to kill the server: ";
+        std::string inbuffer;
+        std::getline(std::cin, inbuffer);
+        std::cout << "Goodbye!" << std::endl;
 
-                if (entity->getMass() > 0) {
-                // cout << "ENTITY " << i << " address: " << entity << endl;
+        engine->stop();
 
-                    Vec3 pos = entity->getPosition();
-                    cout << "[" << entity->getId() << "] " <<
-                        "Position: (" <<
-                        pos.x << ", " <<
-                        pos.y << ", " <<
-                        pos.z <<
-                        ")" << endl;
-                }
+        for (int i = 0; i < entities->size(); i++) {
+            CollisionEntity* entity = &entities->at(i);
+
+            if (entity->getMass() > 0) {
+            // cout << "ENTITY " << i << " address: " << entity << endl;
+
+                Vec3 pos = entity->getPosition();
+                cout << "[" << entity->getId() << "] " <<
+                    "Position: (" <<
+                    pos.x << ", " <<
+                    pos.y << ", " <<
+                    pos.z <<
+                    ")" << endl;
             }
         }
     }
