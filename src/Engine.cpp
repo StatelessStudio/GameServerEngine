@@ -44,7 +44,7 @@ void Engine::run()
 		}
 
 		unsigned __int64 now = this->getTime();
-		if (now >= (lastrun + tickTimeMs)) {
+		if (shouldRun && now >= (lastrun + tickTimeMs)) {
 			this->step();
 			lastrun = now;
 		}
