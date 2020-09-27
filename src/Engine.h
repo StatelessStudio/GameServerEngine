@@ -13,4 +13,6 @@ public:
 	~Engine();
 };
 
+Engine* getEngine();
+
 } // namespace SSGEServer

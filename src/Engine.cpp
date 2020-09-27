@@ -15,4 +15,10 @@ Engine::~Engine()
 	std::cout << "Server Engine Teardown!" << std::endl;
 }
 
+Engine* getEngine()
+{
+	static Engine engine;
+	return &engine;
+}
+
 } // namespace SSGEServer

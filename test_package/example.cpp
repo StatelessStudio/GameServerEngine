@@ -17,7 +17,8 @@ int main()
 {
     try {
         cout << "Creating engine..." << endl;
-        Engine engine;
+        Engine* engine;
+        engine = getEngine();
 
         cout << "Setting up database..." << endl;
         Database db("SQLite", "C:/Users/Drew/Downloads/sample.db");
