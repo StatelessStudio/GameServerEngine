@@ -5,6 +5,7 @@
 #include <SSGEServer/Engine.h>
 #include <SSGEServer/Database.h>
 #include <SSGEServer/CollisionEntity.h>
+#include <SSGEServer/Server.h>
 
 using std::vector;
 using std::cout;
@@ -48,28 +49,11 @@ int main()
         // Run simulation
         engine->start();
 
-        std::cout << "Press enter to kill the server: ";
-        std::string inbuffer;
-        std::getline(std::cin, inbuffer);
-        std::cout << "Goodbye!" << std::endl;
+        // Start server
+        SSGEServer::Server server;
 
+        // Kill engine when server terminates
         engine->stop();
-
-        for (int i = 0; i < entities->size(); i++) {
-            CollisionEntity* entity = &entities->at(i);
-
-            if (entity->getMass() > 0) {
-            // cout << "ENTITY " << i << " address: " << entity << endl;
-
-                Vec3 pos = entity->getPosition();
-                cout << "[" << entity->getId() << "] " <<
-                    "Position: (" <<
-                    pos.x << ", " <<
-                    pos.y << ", " <<
-                    pos.z <<
-                    ")" << endl;
-            }
-        }
     }
     catch (SSGE::Exception& ex) {
         cout << "[SSGE] " << ex.what() << endl;
